@@ -5,10 +5,14 @@ import pickle
 import os
 
 
+
+
+
 class Servidor():
 
-    def __init__(self, host=socket.gethostname(), port=59989):
+    def __init__(self, host=socket.gethostname(), port=59988):
         self.clientes = []
+        self.nicknames = []
         self.sock = socket.socket()
         self.sock.bind((str(host), int(port)))
         self.sock.listen(20)
@@ -45,9 +49,16 @@ class Servidor():
                 conn, addr = self.sock.accept()
                 print(f"\nConexion aceptada via {conn}\n")
                 conn.setblocking(False)
+                data = conn.recv(32)
+                self.nicknames.append(data)
+                print("Usuarios Conectados: ")
+                for n in self.nicknames:
+                    print(pickle.loads(n))
                 self.clientes.append(conn)
+                
             except:
                 pass
+
 
     def procesarC(self):
         print("Procesamiento de mensajes iniciado")
@@ -58,6 +69,7 @@ class Servidor():
                         data = c.recv(32)
                         if data:
                             self.broadcast(data,c)
+
                     except:
                         pass
 

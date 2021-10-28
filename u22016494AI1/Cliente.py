@@ -6,11 +6,13 @@ import os
 
 class Cliente():
     
-    def __init__(self, host=socket.gethostname(), port=59989):
+    def __init__(self, host=socket.gethostname(), port=59988):
 
         nickname = input("Nickname:")
+        
         self.sock = socket.socket()
         self.sock.connect((str(host), int(port)))
+        self.sock.send(pickle.dumps(nickname))
         hilo_recv_mensaje = threading.Thread(target=self.recibir)
         hilo_recv_mensaje.daemon = True
         hilo_recv_mensaje.start()

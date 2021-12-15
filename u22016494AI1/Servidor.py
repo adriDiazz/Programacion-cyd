@@ -3,7 +3,7 @@ import threading
 import sys
 import pickle
 import os
-
+# esto no funciona, no guarda mensajes, ni actualiza los chats, ver github
 #59986
 
 
@@ -77,7 +77,7 @@ class Servidor():
                             with open('u22016494.txt','a') as writer:#Guardamos los mensajes en el .txt mediante el with para que se cierre automaticamente
                                  writer.write(pickle.loads(data) + "\n")#Debemos de guardar el mensaje deserializado 
                             self.broadcast(data,c)
-                            
+                          # no guarda correctamente  
                             
 
                     except:
